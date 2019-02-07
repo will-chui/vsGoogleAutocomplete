@@ -193,13 +193,33 @@ angular.module('vsGoogleAutocomplete').directive('vsGoogleAutocomplete', ['vsGoo
 
 			// updates view value on focusout
 			element.on('blur', function(event) {
-				viewValue = (place && place.formatted_address) ? viewValue : modelCtrl.$viewValue;
-				$timeout(function() {
-					scope.$apply(function() {
-						modelCtrl.$setViewValue(viewValue);
-						modelCtrl.$render();
+				if (document.querySelectorAll('.pac-item:hover').length == 0){
+					event.stopImmediatePropagation();
+					event.preventDefault();
+
+					if(place.formatted_address != event.target.value){
+					   	modelCtrl.vsPlaceId="";
+						modelCtrl.vsStreetNumber="";
+						modelCtrl.vsStreet="";
+						modelCtrl.vsCity="";
+						modelCtrl.vsState="";
+						modelCtrl.vsCountryShort="";
+						modelCtrl.vsPostCode="";
+					  }
+					 var pacContainer = document.querySelectorAll('.pac-container')[0];
+					 if(pacContainer){
+						pacContainer.style.display = "none";
+					 }
+				}
+				else {
+					viewValue = (place && place.formatted_address) ? viewValue : modelCtrl.$viewValue;
+					$timeout(function() {
+						scope.$apply(function() {
+							modelCtrl.$setViewValue(viewValue);
+							modelCtrl.$render();
+						});
 					});
-				});
+				}
 			});
 
 			// prevent submitting form on enter
