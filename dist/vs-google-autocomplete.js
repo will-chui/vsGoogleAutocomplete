@@ -1,7 +1,15 @@
 /**
- * vsGoogleAutocomplete - v0.5.0 - 2015-11-29
+ * vsGoogleAutocomplete - v0.5.0 - 2019-02-11
  * https://github.com/vskosp/vsGoogleAutocomplete
- * Copyright (c) 2015 K.Polishchuk
+ * Copyright (c) 2019 K.Polishchuk
+ * License: MIT
+ */
+(function (window, document) {
+'use strict';
+/**
+ * vsGoogleAutocomplete - v0.5.0 - 2019-02-07
+ * https://github.com/vskosp/vsGoogleAutocomplete
+ * Copyright (c) 2019 K.Polishchuk
  * License: MIT
  */
 (function (window, document) {
@@ -201,13 +209,33 @@ angular.module('vsGoogleAutocomplete').directive('vsGoogleAutocomplete', ['vsGoo
 
 			// updates view value on focusout
 			element.on('blur', function(event) {
-				viewValue = (place && place.formatted_address) ? viewValue : modelCtrl.$viewValue;
-				$timeout(function() {
-					scope.$apply(function() {
-						modelCtrl.$setViewValue(viewValue);
-						modelCtrl.$render();
+				if (document.querySelectorAll('.pac-item:hover').length === 0){
+					event.stopImmediatePropagation();
+					event.preventDefault();
+					place = autocomplete.getPlace();
+					if(place && place.formatted_address != event.target.value){
+					   	scope.vsPlaceId="";
+						scope.vsStreetNumber="";
+						scope.vsStreet="";
+						scope.vsCity="";
+						scope.vsState="";
+						scope.vsCountryShort="";
+						scope.vsPostCode="";
+					  }
+					 var pacContainer = document.querySelectorAll('.pac-container')[0];
+					 if(pacContainer){
+						pacContainer.style.display = "none";
+					 }
+				}
+				else {
+					viewValue = (place && place.formatted_address) ? viewValue : modelCtrl.$viewValue;
+					$timeout(function() {
+						scope.$apply(function() {
+							modelCtrl.$setViewValue(viewValue);
+							modelCtrl.$render();
+						});
 					});
-				});
+				}
 			});
 
 			// prevent submitting form on enter
@@ -219,5 +247,7 @@ angular.module('vsGoogleAutocomplete').directive('vsGoogleAutocomplete', ['vsGoo
 		}
 	};
 }]);
+
+})(window, document);
 
 })(window, document);
