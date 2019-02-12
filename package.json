@@ -4,21 +4,21 @@
   "description": "AngularJS module for easy autocomplete through the Google Maps JavaScript API v3",
   "repository": {
     "type": "git",
-    "url": "https://github.com/vskosp/vsGoogleAutocomplete.git"
+    "url": "https://github.com/will-chui/vsGoogleAutocomplete.git"
   },
   "keywords": [
     "angular",
     "angularjs",
-    "google",
+    "google",vskospy
     "places",
     "autocomplete"
   ],
   "author": "K.Polishchuk",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/vskosp/vsGoogleAutocomplete/issues"
+    "url": "https://github.com/will-chui/vsGoogleAutocomplete/issues"
   },
-  "homepage": "https://github.com/vskosp/vsGoogleAutocomplete",
+  "homepage": "https://github.com/will-chui/vsGoogleAutocomplete",
   "devDependencies": {
     "grunt": "^0.4.5",
     "grunt-contrib-concat": "^0.5.1",
